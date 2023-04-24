@@ -64,7 +64,7 @@ router.delete("/:id", getCompany, async (req, res) => {
     const company = await Company.findById(req.params.id);
     console.log(company);
     await company.deleteOne();
-    res.status(200).json({ message: "Company deleted" });
+    res.status(200).json({ message: "Company deleted." });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -75,7 +75,7 @@ async function getCompany(req, res, next) {
   try {
     const company = await Company.findById(req.params.id);
     if (company == null) {
-      return res.status(404).json({ message: "Company not found" });
+      return res.status(404).json({ message: "Company not found!" });
     }
     res.company = company;
     next();
