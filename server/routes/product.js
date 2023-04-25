@@ -3,25 +3,30 @@ const router = express.Router();
 const Product = require("../models/Product");
 const Company = require("../models/Company");
 
-// Get all products
+// GET ALL Products
 router.get("/", async (req, res) => {
-  const { skip, limit, search, sort, companyId } = req.query;
-  const query = {};
-  if (search) {
-    query.name = { $regex: search, $options: "i" };
-  }
-  if (companyId) {
-    query.company = companyId;
-  }
+  const qNew = req.query.new;
+  const qCategory = req.query.category;
+
   try {
-    const products = await Product.find(query)
-      .skip(parseInt(skip))
-      .limit(limit === "-1" ? undefined : parseInt(limit))
-      .sort(sort === "desc" ? { name: -1 } : { name: 1 })
-      .populate({ path: "company", select: "-__v" });
-    res.json(products);
+    let products;
+
+    if (qNew) {
+      products = await Product.find().sort({ createdAt: -1 }).limit(1); // find is a mongoose method that finds all the Products in the database
+    } else if (qCategory) {
+      products = await Product.find({
+        categories: {
+          $in: [qCategory], // $in is a mongoose method that finds all the Products in the database that have the category qCategory in the categories array
+        },
+      });
+    } else {
+      products = await Product.find();
+    }
+
+    res.status(200).json(products);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json(err);
+    console.log(err);
   }
 });
 

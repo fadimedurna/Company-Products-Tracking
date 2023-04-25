@@ -23,8 +23,8 @@ export default function WidgetSm() {
       <ul className='widgetSmList'>
         {companies.map((company) => (
           <li className='widgetSmListItem' key={company._id}>
-            <div className='widgetSmcompany'>
-              <span className='widgetSmcompanyname'>{company.name}</span>
+            <div className='widgetSmCompany'>
+              <span className='widgetSmCompanyname'>{company.name}</span>
             </div>
           </li>
         ))}

@@ -3,45 +3,41 @@ import { publicRequest } from "../../requestMethods";
 import "./widgetLg.css";
 
 export default function WidgetLg() {
-  const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const getOrders = async () => {
+    const getProducts = async () => {
       try {
-        const res = await publicRequest.get("orders");
-        setOrders(res.data);
+        const res = await publicRequest.get("products");
+        setProducts(res.data);
       } catch (err) {
         console.log(err);
       }
     };
-    getOrders();
+    getProducts();
   }, []);
 
-  const Button = ({ type }) => {
-    return <button className={"widgetLgButton " + type}>{type}</button>;
-  };
   return (
     <div className='widgetLg'>
-      <h3 className='widgetLgTitle'>Latest transactions</h3>
+      <h3 className='widgetLgTitle'>Latest</h3>
       <table className='widgetLgTable'>
         <thead>
           <tr className='widgetLgTr'>
-            <th className='widgetLgTh'>Customer</th>
-            <th className='widgetLgTh'>Date</th>
-            <th className='widgetLgTh'>Amount</th>
-            <th className='widgetLgTh'>Status</th>
+            <th className='widgetLgTh'>Product</th>
+            <th className='widgetLgTh'>Qunatity</th>
+            <th className='widgetLgTh'>Category</th>
+            <th className='widgetLgTh'>Company</th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
-            <tr className='widgetLgTr' key={order._id}>
+          {products.map((product) => (
+            <tr className='widgetLgTr' key={product._id}>
               <td className='widgetLgUser'>
-                <span className='widgetLgName'>{order.userId}</span>
+                <span className='widgetLgName'>{product.name}</span>
               </td>
-              <td className='widgetLgAmount'>$ {order.amount}</td>
-              <td className='widgetLgStatus'>
-                <Button type={order.status} />
-              </td>
+              <td className='widgetLgAmount'>{product.quantity}</td>
+              <td className='widgetLgStatus'>{product.category}</td>
+              <td className='widgetLgDate'>{product.company}</td>
             </tr>
           ))}
         </tbody>

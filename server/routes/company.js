@@ -101,10 +101,20 @@ router.get("/stats", async (req, res) => {
   }
 });
 
+// GET TOTAL NUMBER OF COMPANIES
+router.get("/total", getCompany, async (req, res) => {
+  try {
+    const total = await Company.find().countDocuments();
+    res.status(200).json(total);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Middleware function to get a specific company by ID
 async function getCompany(req, res, next) {
   try {
-    const company = await Company.findById(req.params._id);
+    const company = await Company.findById(req.params.id);
     if (company == null) {
       return res.status(404).json({ message: "Company not found!" });
     }
