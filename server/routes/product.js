@@ -30,6 +30,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Getting the total number of companies
+router.get("/total", async (req, res) => {
+  try {
+    const count = await Product.countDocuments();
+    res.status(200).json(count);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 // Get a specific product
 router.get("/:id", getProduct, (req, res) => {
   res.json(res.product);

@@ -19,7 +19,7 @@ export default function WidgetLg() {
 
   return (
     <div className='widgetLg'>
-      <h3 className='widgetLgTitle'>Latest</h3>
+      <h3 className='widgetLgTitle'>Latest Products</h3>
       <table className='widgetLgTable'>
         <thead>
           <tr className='widgetLgTr'>
@@ -32,12 +32,12 @@ export default function WidgetLg() {
         <tbody>
           {products.map((product) => (
             <tr className='widgetLgTr' key={product._id}>
-              <td className='widgetLgUser'>
+              <td className='widgetLgProducts'>
                 <span className='widgetLgName'>{product.name}</span>
               </td>
-              <td className='widgetLgAmount'>{product.quantity}</td>
-              <td className='widgetLgStatus'>{product.category}</td>
-              <td className='widgetLgDate'>{product.company}</td>
+              <td className='widgetLgQuantity'>{product.quantity}</td>
+              <td className='widgetLgCategory'>{product.category}</td>
+              <td className='widgetLgCompany'>{product.company}</td>
             </tr>
           ))}
         </tbody>

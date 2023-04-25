@@ -15,6 +15,43 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Getting the total number of companies
+router.get("/total", async (req, res) => {
+  try {
+    const count = await Company.countDocuments();
+    res.status(200).json(count);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// GET COMPANY STATS
+router.get("/stats", async (req, res) => {
+  const today = new Date();
+  const lastYear = new Date(today.setFullYear(today.getFullYear() - 1));
+
+  try {
+    const data = await Company.aggregate([
+      { $match: { createdAt: { $gte: lastYear } } },
+      {
+        $project: {
+          month: { $month: "$createdAt" },
+        },
+      },
+      {
+        $group: {
+          _id: "$month",
+          total: { $sum: 1 }, // $sum is a mongoose method that sums the total number of admins
+        },
+      },
+    ]);
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Get a specific company
 router.get("/:id", getCompany, (req, res) => {
   res.status(200).json(res.company);
@@ -72,42 +109,6 @@ router.delete("/:id", getCompany, async (req, res) => {
     res.status(200).json({ message: "Company deleted." });
   } catch (err) {
     res.status(500).json({ message: err.message });
-  }
-});
-
-// GET COMPANY STATS
-router.get("/stats", async (req, res) => {
-  const today = new Date();
-  const lastYear = new Date(today.setFullYear(today.getFullYear() - 1));
-
-  try {
-    const data = await Company.aggregate([
-      { $match: { createdAt: { $gte: lastYear } } },
-      {
-        $project: {
-          month: { $month: "$createdAt" },
-        },
-      },
-      {
-        $group: {
-          _id: "$month",
-          total: { $sum: 1 }, // $sum is a mongoose method that sums the total number of admins
-        },
-      },
-    ]);
-    res.status(200).json(data);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// GET TOTAL NUMBER OF COMPANIES
-router.get("/total", getCompany, async (req, res) => {
-  try {
-    const total = await Company.find().countDocuments();
-    res.status(200).json(total);
-  } catch (err) {
-    res.status(500).json(err);
   }
 });
 

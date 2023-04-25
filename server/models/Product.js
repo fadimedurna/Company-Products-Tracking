@@ -18,6 +18,10 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    img: {
+      type: String,
+      default: "https://via.placeholder.com/150",
+    },
     company: {
       type: mongoose.Schema.Types.ObjectId, // this is the type of the id of the company
       ref: "Company",

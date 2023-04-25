@@ -33,6 +33,7 @@
 
 .widgetSmCompany {
   display: flex;
+  flex: 0.9;
   flex-direction: column;
 }
 
