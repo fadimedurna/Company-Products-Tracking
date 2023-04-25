@@ -18,10 +18,10 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path='/signup' exact element={<Register />} />
+        <Route path='/login' exact element={<Login />} />
         <Route element={<AppLayout />}>
           {user && <Route path='/' exact element={<Home />} />}
-          <Route path='/signup' exact element={<Register />} />
-          <Route path='/login' exact element={<Login />} />
           <Route path='/' element={<Navigate replace to='/login' />} />
           <Route path='/companies' element={<CompanyList />} />
           <Route path='/products' element={<ProductList />} />
