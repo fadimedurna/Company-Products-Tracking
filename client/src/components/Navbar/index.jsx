@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-const Main = () => {
+const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.reload();
@@ -18,4 +18,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Navbar;

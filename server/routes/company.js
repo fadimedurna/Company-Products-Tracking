@@ -4,16 +4,14 @@ const Company = require("../models/Company");
 
 // Get all companies
 router.get("/", async (req, res) => {
-  const { skip, limit, search } = req.query;
-  const query = {};
-  if (search) query.name = { $regex: search, $options: "i" }; //regex is used to search for a string in a field, $options: "i" is used to make the search case insensitive
+  const query = req.query.new;
   try {
-    const companies = await Company.find(query)
-      .skip(parseInt(skip)) //skip is used to skip a number of documents in a query, parseInt is used to convert the string to an integer
-      .limit(limit === "-1" ? undefined : parseInt(limit));
+    const companies = query
+      ? await Company.find().sort({ _id: -1 }).limit(5) // find is a mongoose method that finds all the companies in the database and sorts them by id in descending order and limits the results to 5
+      : await Company.find();
     res.status(200).json(companies);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json(err);
   }
 });
 
@@ -51,7 +49,14 @@ router.patch("/:id", getCompany, async (req, res) => {
   if (req.body.website != null) res.company.website = req.body.website;
 
   try {
-    const updatedCompany = await res.company.save();
+    const updatedCompany = await await Company.findByIdAndUpdate(
+      // findByIdAndUpdate is a mongoose method that updates the Company in the database based on the id
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
     res.status(200).json(updatedCompany);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -70,10 +75,36 @@ router.delete("/:id", getCompany, async (req, res) => {
   }
 });
 
+// GET COMPANY STATS
+router.get("/stats", async (req, res) => {
+  const today = new Date();
+  const lastYear = new Date(today.setFullYear(today.getFullYear() - 1));
+
+  try {
+    const data = await Company.aggregate([
+      { $match: { createdAt: { $gte: lastYear } } },
+      {
+        $project: {
+          month: { $month: "$createdAt" },
+        },
+      },
+      {
+        $group: {
+          _id: "$month",
+          total: { $sum: 1 }, // $sum is a mongoose method that sums the total number of admins
+        },
+      },
+    ]);
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Middleware function to get a specific company by ID
 async function getCompany(req, res, next) {
   try {
-    const company = await Company.findById(req.params.id);
+    const company = await Company.findById(req.params._id);
     if (company == null) {
       return res.status(404).json({ message: "Company not found!" });
     }
