@@ -105,11 +105,11 @@ export const updateCompany = async (id, product, dispatch) => {
   }
 };
 
-//add product
+//add company
 export const addCompany = async (product, dispatch) => {
   dispatch(addCompanyStart());
   try {
-    const res = await publicRequest.post("/products", product);
+    const res = await publicRequest.post("/companies", product);
     dispatch(addCompanySuccess(res.data));
   } catch (err) {
     dispatch(addCompanyFailure());

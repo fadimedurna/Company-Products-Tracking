@@ -10,14 +10,15 @@ export default function CompanyList() {
   const dispatch = useDispatch();
   const companies = useSelector((state) => state.company.companies);
 
+  const handleDelete = (id) => {
+    deleteCompany(id, dispatch);
+    getCompanies(dispatch);
+    console.log("deleted company", id);
+  };
+
   useEffect(() => {
     getCompanies(dispatch);
   }, [dispatch]);
-
-  const handleDelete = (id) => {
-    deleteCompany(id, dispatch);
-    console.log("deleted company", id);
-  };
 
   const columns = [
     { field: "_id", headerName: "ID", width: 220 },
