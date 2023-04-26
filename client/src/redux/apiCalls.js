@@ -72,7 +72,7 @@ export const addProduct = async (product, dispatch) => {
   }
 };
 
-//get products
+//get companies
 export const getCompanies = async (dispatch) => {
   dispatch(getCompanyStart());
   try {
@@ -83,7 +83,7 @@ export const getCompanies = async (dispatch) => {
   }
 };
 
-//delete product
+//delete company
 export const deleteCompany = async (id, dispatch) => {
   dispatch(deleteCompanyStart());
   try {
@@ -94,12 +94,12 @@ export const deleteCompany = async (id, dispatch) => {
   }
 };
 
-//update product
-export const updateCompany = async (id, product, dispatch) => {
+//update company
+export const updateCompany = async (id, company, dispatch) => {
   dispatch(updateCompanyStart());
   try {
-    //const res = await publicRequest.patch(`/products/${id}`, product);
-    dispatch(updateCompanySuccess({ id: id, product: product }));
+    const res = await publicRequest.patch(`/companies/${id}`, company);
+    dispatch(updateCompanySuccess({ id: id, company: res.data }));
   } catch (err) {
     dispatch(updateCompanyFailure());
   }

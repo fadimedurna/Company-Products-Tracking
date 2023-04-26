@@ -87,7 +87,6 @@ router.patch("/:id", getCompany, async (req, res) => {
 
   try {
     const updatedCompany = await Company.findByIdAndUpdate(
-      // findByIdAndUpdate is a mongoose method that updates the Company in the database based on the id
       req.params.id,
       {
         $set: req.body,
