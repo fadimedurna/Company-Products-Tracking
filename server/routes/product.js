@@ -121,11 +121,11 @@ router.delete("/:id", getProduct, async (req, res) => {
   try {
     await Company.findByIdAndUpdate(
       res.product.company,
-      { $pull: { products: res.product._id } },
+      { $pull: { products: res.product.id } },
       { new: true }
     );
-    console.log(res.product);
-    await res.product.deleteOne();
+    await Product.findByIdAndDelete(req.params.id);
+    console.log("deleted: ", res.product);
     res.json({ message: "Product deleted." });
   } catch (err) {
     res.status(500).json({ message: err.message });

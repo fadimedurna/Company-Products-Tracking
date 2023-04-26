@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./newProduct.css";
-import { addProduct } from "../../redux/apiCalls";
-import { useDispatch } from "react-redux";
+import { addProduct, getCompanies } from "../../redux/apiCalls";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function NewProduct() {
@@ -12,9 +12,14 @@ export default function NewProduct() {
     unit: "",
     company: "",
   });
+  const companies = useSelector((state) => state.company.companies);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getCompanies(dispatch);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,12 +81,14 @@ export default function NewProduct() {
         </div>
         <div className='addProductItem'>
           <label>Product Company</label>
-          <input
-            name='company'
-            type='text'
-            placeholder='company id'
-            onChange={handleChange}
-          />
+          <select name='company' onChange={handleChange}>
+            <option value=''>Select a company</option>
+            {companies.map((company) => (
+              <option key={company._id} value={company._id}>
+                {company.name}
+              </option>
+            ))}
+          </select>
         </div>
         <button type='submit' className='addProductButton'>
           Create Product

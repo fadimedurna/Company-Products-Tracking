@@ -10,14 +10,15 @@ export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
 
+  const handleDelete = (id) => {
+    deleteProduct(id, dispatch);
+    getProducts(dispatch);
+    console.log("deleted product", id);
+  };
+
   useEffect(() => {
     getProducts(dispatch);
   }, [dispatch]);
-
-  const handleDelete = (id) => {
-    deleteProduct(id, dispatch);
-    console.log("deleted product", id);
-  };
 
   const columns = [
     { field: "_id", headerName: "ID", width: 220 },
@@ -84,7 +85,6 @@ export default function ProductList() {
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row._id}
-        checkboxSelection
         pageSizeOptions={[8]}
         initialState={{
           pagination: {

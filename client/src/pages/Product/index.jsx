@@ -1,9 +1,9 @@
 import { useLocation } from "react-router-dom";
 import "./product.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateProduct } from "../../redux/apiCalls";
+import { getCompanies, updateProduct } from "../../redux/apiCalls";
 
 export default function Product() {
   const [inputs, setInputs] = useState({
@@ -17,10 +17,24 @@ export default function Product() {
   const productId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const companies = useSelector((state) => state.company.companies);
 
   const product = useSelector((state) =>
     state.product.products.find((product) => product._id === productId)
   );
+
+  useEffect(() => {
+    getCompanies(dispatch);
+    if (product) {
+      setInputs({
+        name: product.name,
+        category: product.category,
+        quantity: product.quantity,
+        unit: product.unit,
+        company: product.company ? product.company._id : "",
+      });
+    }
+  }, [dispatch, product]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,10 +48,8 @@ export default function Product() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const product = { ...inputs };
-    console.log("updated product: ", product);
-    //console.log("product id: ", productId);
-    updateProduct(productId, product, dispatch);
+    console.log("updated product: ", inputs);
+    updateProduct(productId, inputs, dispatch);
     navigate("/products");
   };
 
@@ -105,13 +117,20 @@ export default function Product() {
               name='unit'
               onChange={handleChange}
             />
-            <label>Company Id</label>
-            <input
-              type='text'
-              placeholder={product.company._id}
+            <label>Company</label>
+            <select
               name='company'
               onChange={handleChange}
-            />
+              value={inputs.company}>
+              <option value=''>
+                {product.company ? product.company.name : "N/A"}
+              </option>
+              {companies.map((company) => (
+                <option key={company._id} value={company._id}>
+                  {company.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className='productFormRight'>
             <button type='submit' className='productButton'>

@@ -76,7 +76,6 @@ export default function CompanyList() {
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row._id}
-        checkboxSelection
         pageSizeOptions={[8]}
         initialState={{
           pagination: {
