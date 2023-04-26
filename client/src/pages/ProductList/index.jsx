@@ -45,7 +45,11 @@ export default function ProductList() {
       headerName: "Company",
       width: 200,
       renderCell: (params) => {
-        return <div className='productListItem'>{params.row.company.name}</div>;
+        return (
+          <div className='productListItem'>
+            {params.row.company ? params.row.company.name : "N/A"}
+          </div>
+        );
       },
     },
     {

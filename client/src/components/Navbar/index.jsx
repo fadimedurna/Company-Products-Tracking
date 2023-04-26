@@ -1,6 +1,16 @@
 import styles from "./styles.module.css";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.reload();

@@ -37,7 +37,9 @@ export default function WidgetLg() {
               </td>
               <td className='widgetLgQuantity'>{product.quantity}</td>
               <td className='widgetLgCategory'>{product.category}</td>
-              <td className='widgetLgCompany'>{product.company.name}</td>
+              <td className='widgetLgCompany'>
+                {product.company ? product.company.name : "N/A"}
+              </td>
             </tr>
           ))}
         </tbody>

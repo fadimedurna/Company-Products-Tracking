@@ -54,7 +54,7 @@ export const deleteProduct = async (id, dispatch) => {
 export const updateProduct = async (id, product, dispatch) => {
   dispatch(updateProductStart());
   try {
-    const res = await publicRequest.put(`/products/${id}`, product);
+    const res = await publicRequest.patch(`/products/${id}`, product);
     dispatch(updateProductSuccess({ id: id, product: res.data }));
   } catch (err) {
     dispatch(updateProductFailure());
@@ -98,7 +98,7 @@ export const deleteCompany = async (id, dispatch) => {
 export const updateCompany = async (id, product, dispatch) => {
   dispatch(updateCompanyStart());
   try {
-    //const res = await publicRequest.put(`/products/${id}`, product);
+    //const res = await publicRequest.patch(`/products/${id}`, product);
     dispatch(updateCompanySuccess({ id: id, product: product }));
   } catch (err) {
     dispatch(updateCompanyFailure());
