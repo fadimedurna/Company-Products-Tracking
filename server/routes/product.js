@@ -5,32 +5,27 @@ const Company = require("../models/Company");
 
 // GET ALL Products
 router.get("/", async (req, res) => {
-  const qNew = req.query.new;
-  const qCategory = req.query.category;
-
+  const { skip, limit, search, sort, companyId } = req.query;
+  const query = {};
+  if (search) {
+    query.name = { $regex: search, $options: "i" };
+  }
+  if (companyId) {
+    query.company = companyId;
+  }
   try {
-    let products;
-
-    if (qNew) {
-      products = await Product.find().sort({ createdAt: -1 }).limit(1); // find is a mongoose method that finds all the Products in the database
-    } else if (qCategory) {
-      products = await Product.find({
-        categories: {
-          $in: [qCategory], // $in is a mongoose method that finds all the Products in the database that have the category qCategory in the categories array
-        },
-      });
-    } else {
-      products = await Product.find();
-    }
-
-    res.status(200).json(products);
+    const products = await Product.find(query)
+      .skip(parseInt(skip))
+      .limit(limit === "-1" ? undefined : parseInt(limit))
+      .sort(sort === "desc" ? { name: -1 } : { name: 1 })
+      .populate({ path: "company", select: "-__v" });
+    res.json(products);
   } catch (err) {
-    res.status(500).json(err);
-    console.log(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
-// Getting the total number of companies
+// Getting the total number of products
 router.get("/total", async (req, res) => {
   try {
     const count = await Product.countDocuments();
@@ -105,8 +100,15 @@ router.patch("/:id", getProduct, async (req, res) => {
   }
 
   try {
-    const updatedProduct = await res.product.save();
-    res.json(updatedProduct);
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    //const updatedProduct = await res.product.save();
+    res.status(200).json(updatedProduct);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

@@ -21,7 +21,7 @@ export default function WidgetSm() {
     <div className='widgetSm'>
       <span className='widgetSmTitle'>New Join Companies</span>
       <ul className='widgetSmList'>
-        {companies.map((company) => (
+        {companies.slice(0, 3).map((company) => (
           <li className='widgetSmListItem' key={company._id}>
             <img src={company.img} alt='' className='widgetSmImg' />
             <div className='widgetSmCompany'>
