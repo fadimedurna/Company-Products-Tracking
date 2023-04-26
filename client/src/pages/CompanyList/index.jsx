@@ -13,6 +13,7 @@ export default function CompanyList() {
   const handleDelete = (id) => {
     deleteCompany(id, dispatch);
     getCompanies(dispatch);
+    window.location.reload();
     console.log("deleted company", id);
   };
 
