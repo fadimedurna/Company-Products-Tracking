@@ -36,7 +36,7 @@ export default function Product() {
     e.preventDefault();
     const product = { ...inputs };
     console.log("updated product: ", product);
-    console.log("product id: ", productId);
+    //console.log("product id: ", productId);
     updateProduct(productId, product, dispatch);
     navigate("/products");
   };
@@ -67,7 +67,9 @@ export default function Product() {
             </div>
             <div className='productInfoItem'>
               <span className='productInfoKey'>company:</span>
-              <span className='productInfoValue'>{product.company.name}</span>
+              <span className='productInfoValue'>
+                {product.company ? product.company.name : "N/A"}
+              </span>
             </div>
           </div>
         </div>

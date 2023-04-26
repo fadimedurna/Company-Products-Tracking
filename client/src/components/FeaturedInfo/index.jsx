@@ -10,11 +10,11 @@ export default function FeaturedInfo() {
     const getCompany = async () => {
       try {
         const res = await publicRequest.get("companies/total");
-        console.log("res", res);
+        //console.log("res", res);
         setCompanyTotal(res.data);
 
         const res2 = await publicRequest.get("products/total");
-        console.log("res2", res2);
+        //console.log("res2", res2);
         setProductTotal(res2.data);
       } catch {}
     };

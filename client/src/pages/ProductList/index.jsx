@@ -84,8 +84,12 @@ export default function ProductList() {
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row._id}
-        pageSize={8}
         checkboxSelection
+        initialState={{
+          pagination: {
+            paginationModel: { pageSize: 8, page: 0 },
+          },
+        }}
       />
     </div>
   );

@@ -13,7 +13,6 @@ export default function NewProduct() {
     company: "",
   });
 
-  //const [cat, setCat] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,10 +26,6 @@ export default function NewProduct() {
     });
   };
 
-  /* const handleCat = (e) => {
-    setCat(e.target.value.split(",").map((item) => item.trim()));
-  };
- */
   const handleSubmit = (e) => {
     e.preventDefault();
     const product = { ...inputs };

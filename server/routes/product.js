@@ -17,7 +17,8 @@ router.get("/", async (req, res) => {
     const products = await Product.find(query)
       .skip(parseInt(skip))
       .limit(limit === "-1" ? undefined : parseInt(limit))
-      .sort(sort === "desc" ? { name: -1 } : { name: 1 })
+      //sorting as creating newly
+      .sort({ createdAt: -1 })
       .populate({ path: "company", select: "-__v" });
     res.json(products);
   } catch (err) {
@@ -59,6 +60,7 @@ router.post("/", async (req, res) => {
       { $push: { products: newProduct._id } },
       { new: true }
     );
+    console.log("newProduct", newProduct);
     res.status(201).json(newProduct);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -107,7 +109,7 @@ router.patch("/:id", getProduct, async (req, res) => {
       },
       { new: true }
     );
-    //const updatedProduct = await res.product.save();
+    console.log(updatedProduct);
     res.status(200).json(updatedProduct);
   } catch (err) {
     res.status(400).json({ message: err.message });

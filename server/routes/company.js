@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
   const query = req.query.new;
   try {
     const companies = query
-      ? await Company.find().sort({ _id: -1 }).limit(5) // find is a mongoose method that finds all the companies in the database and sorts them by id in descending order and limits the results to 5
+      ? await Company.find().sort({ createdAt: -1 }).limit(3) // find is a mongoose method that finds all the companies in the database and sorts them by id in descending order and limits the results to 5
       : await Company.find();
     res.status(200).json(companies);
   } catch (err) {
