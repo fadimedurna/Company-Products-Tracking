@@ -13,6 +13,7 @@ export default function ProductList() {
   const handleDelete = (id) => {
     deleteProduct(id, dispatch);
     getProducts(dispatch);
+    window.location.reload();
     console.log("deleted product", id);
   };
 

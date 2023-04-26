@@ -103,7 +103,7 @@ router.patch("/:id", getCompany, async (req, res) => {
 router.delete("/:id", getCompany, async (req, res) => {
   try {
     const company = await Company.findById(req.params.id);
-    console.log(company);
+    console.log("deleted company: ", company);
     await company.deleteOne();
     res.status(200).json({ message: "Company deleted." });
   } catch (err) {

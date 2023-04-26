@@ -34,14 +34,8 @@ export default function Company() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedFields = {};
-    Object.entries(inputs).forEach(([key, value]) => {
-      if (value !== "" && value !== company[key]) {
-        updatedFields[key] = value;
-      }
-    });
-    console.log("updated company fields: ", updatedFields);
-    updateCompany(companyId, updatedFields, dispatch);
+    console.log("updated company: ", inputs);
+    updateCompany(companyId, inputs, dispatch);
     navigate("/companies");
   };
 
