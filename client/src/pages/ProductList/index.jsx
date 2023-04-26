@@ -85,6 +85,7 @@ export default function ProductList() {
         columns={columns}
         getRowId={(row) => row._id}
         checkboxSelection
+        pageSizeOptions={[8]}
         initialState={{
           pagination: {
             paginationModel: { pageSize: 8, page: 0 },

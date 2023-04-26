@@ -9,10 +9,12 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import AppLayout from "AppLayout";
-import CompanyList from "./pages/CompanyList";
 import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
 import NewProduct from "./pages/NewProduct";
+import CompanyList from "./pages/CompanyList";
+import Company from "./pages/Company";
+import NewCompany from "./pages/NewCompany";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -33,6 +35,9 @@ function App() {
           <Route path='/products' element={<ProductList />} />
           <Route path='/product/:productId' element={<Product />} />
           <Route path='/newproduct' element={<NewProduct />} />
+          <Route path='/companies' element={<CompanyList />} />
+          <Route path='/company/:companyId' element={<Company />} />
+          <Route path='/newcompany' element={<NewCompany />} />
         </Route>
       </Routes>
     </Router>

@@ -73,7 +73,7 @@ export const addProduct = async (product, dispatch) => {
 };
 
 //get products
-export const getCompany = async (dispatch) => {
+export const getCompanies = async (dispatch) => {
   dispatch(getCompanyStart());
   try {
     const res = await publicRequest.get("/companies");
