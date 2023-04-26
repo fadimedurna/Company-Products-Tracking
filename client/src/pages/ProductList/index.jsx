@@ -1,6 +1,7 @@
 import "./productList.css";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,7 +63,10 @@ export default function ProductList() {
         return (
           <>
             <Link to={"/product/" + params.row._id}>
-              <button className='productListEdit'>Edit</button>
+              <EditNoteIcon
+                className='productListEdit'
+                sx={{ fontSize: "30px" }}
+              />
             </Link>
             <DeleteOutlineIcon
               className='productListDelete'

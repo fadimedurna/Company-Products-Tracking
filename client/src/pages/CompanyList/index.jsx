@@ -1,6 +1,7 @@
 import "./companyList.css";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,7 +55,10 @@ export default function CompanyList() {
         return (
           <>
             <Link to={"/company/" + params.row._id}>
-              <button className='companyListEdit'>Edit</button>
+              <EditNoteIcon
+                className='companyListEdit'
+                sx={{ fontSize: "30px" }}
+              />
             </Link>
             <DeleteOutlineIcon
               className='companyListDelete'
