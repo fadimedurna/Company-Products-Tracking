@@ -38,7 +38,7 @@ export default function Home() {
         list.map((item) =>
           setCompanyStats((prev) => [
             ...prev,
-            { name: MONTHS[item._id - 1], "Active Company": item.total },
+            { name: MONTHS[item._id - 1], "New Company": item.total },
           ])
         );
       } catch (err) {
@@ -55,7 +55,7 @@ export default function Home() {
         data={companyStats}
         title='Company Analytics'
         grid
-        dataKey='Active Company'
+        dataKey='New Company'
       />
       <div className='homeWidgets'>
         <WidgetSm />

@@ -43,7 +43,7 @@ const Register = () => {
           <h1>Welcome Back</h1>
           <Link to='/login'>
             <button type='button' className={styles.white_btn}>
-              Sing in
+              Sing In
             </button>
           </Link>
         </div>

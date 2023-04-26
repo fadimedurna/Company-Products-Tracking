@@ -4,14 +4,20 @@ const Company = require("../models/Company");
 
 // Get all companies
 router.get("/", async (req, res) => {
-  const query = req.query.new;
+  const { skip, limit, search, sort, companyId } = req.query;
+  const query = {};
+  if (search) {
+    query.name = { $regex: search, $options: "i" };
+  }
   try {
-    const companies = query
-      ? await Company.find().sort({ createdAt: -1 }).limit(3) // find is a mongoose method that finds all the companies in the database and sorts them by id in descending order and limits the results to 5
-      : await Company.find();
-    res.status(200).json(companies);
+    const companies = await Company.find(query)
+      .skip(parseInt(skip))
+      .limit(limit === "-1" ? undefined : parseInt(limit))
+      //sorting as creating newly
+      .sort({ createdAt: -1 });
+    res.json(companies);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
