@@ -22,6 +22,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  counter-reset: number;
 }
 
 .widgetSmListItem {
@@ -29,6 +30,13 @@
   align-items: center;
   justify-content: space-between;
   margin: 20px 0px;
+  counter-increment: number;
+}
+
+.widgetSmListItem::before {
+  content: counter(number) ".";
+  font-weight: 600;
+  margin-right: 10px;
 }
 
 .widgetSmCompany {
@@ -38,7 +46,7 @@
 }
 
 .widgetSmCompanyname {
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .widgetSmCompanyTitle {

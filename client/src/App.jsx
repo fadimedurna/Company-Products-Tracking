@@ -11,6 +11,8 @@ import Login from "./pages/Login";
 import AppLayout from "AppLayout";
 import CompanyList from "./pages/CompanyList";
 import ProductList from "./pages/ProductList";
+import Product from "./pages/Product";
+import NewProduct from "./pages/NewProduct";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -25,6 +27,8 @@ function App() {
           <Route path='/' element={<Navigate replace to='/login' />} />
           <Route path='/companies' element={<CompanyList />} />
           <Route path='/products' element={<ProductList />} />
+          <Route path='/product/:productId' element={<Product />} />
+          <Route path='/newproduct' element={<NewProduct />} />
         </Route>
       </Routes>
     </Router>

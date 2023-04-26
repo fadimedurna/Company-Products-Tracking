@@ -23,7 +23,6 @@ export default function WidgetSm() {
       <ul className='widgetSmList'>
         {companies.slice(0, 3).map((company) => (
           <li className='widgetSmListItem' key={company._id}>
-            <img src={company.img} alt='' className='widgetSmImg' />
             <div className='widgetSmCompany'>
               <span className='widgetSmCompanyname'>{company.name}</span>
             </div>
