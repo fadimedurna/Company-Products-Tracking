@@ -52,8 +52,8 @@ export default function Product() {
             <input type='number' placeholder={product.quantity} />
             <label>Product Unit</label>
             <input type='text' placeholder={product.unit} />
-            <label>Product Unit</label>
-            <input type='text' placeholder={product.unit} />
+            <label>Company</label>
+            <input type='text' placeholder={product.company.name} />
           </div>
           <div className='productFormRight'>
             <button className='productButton'>Update</button>
