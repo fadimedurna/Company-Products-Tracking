@@ -48,7 +48,7 @@ export default function Product() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("updated product: ", inputs);
+    //console.log("updated product: ", inputs);
     updateProduct(productId, inputs, dispatch);
     navigate("/products");
   };

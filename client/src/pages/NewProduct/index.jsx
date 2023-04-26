@@ -34,7 +34,7 @@ export default function NewProduct() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const product = { ...inputs };
-    console.log(product);
+    console.log("new product: ", product);
     addProduct(product, dispatch);
     navigate("/products");
   };

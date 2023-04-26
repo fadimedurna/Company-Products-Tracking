@@ -34,7 +34,7 @@ export default function Company() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("updated company: ", inputs);
+    //console.log("updated company: ", inputs);
     updateCompany(companyId, inputs, dispatch);
     navigate("/companies");
   };

@@ -21,8 +21,8 @@ export default function FeaturedInfo() {
     getCompany();
   }, []);
 
-  console.log("company total: ", companyTotal);
-  console.log("product total: ", productTotal);
+  /* console.log("company total: ", companyTotal);
+  console.log("product total: ", productTotal); */
 
   return (
     <div className='featured'>

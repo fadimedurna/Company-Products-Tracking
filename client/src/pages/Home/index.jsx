@@ -31,7 +31,7 @@ export default function Home() {
     const getStats = async () => {
       try {
         const res = await publicRequest.get("companies/stats");
-        console.log("companies", res.data);
+        //console.log("companies", res.data);
         const list = res.data.sort((a, b) => {
           return a._id - b._id;
         });
