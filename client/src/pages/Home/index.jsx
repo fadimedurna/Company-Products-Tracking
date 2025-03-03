@@ -31,7 +31,7 @@ export default function Home() {
     const getStats = async () => {
       try {
         const res = await publicRequest.get("companies/stats");
-        //console.log("companies", res.data);
+        console.log("Raw data from API:", res.data);
         const list = res.data.sort((a, b) => {
           return a._id - b._id;
         });
@@ -53,7 +53,7 @@ export default function Home() {
       <FeaturedInfo />
       <Chart
         data={companyStats}
-        title='Company Analytics'
+        title='Company Analytics For This Year'
         grid
         dataKey='New Company'
       />

@@ -30,6 +30,15 @@
   cursor: pointer;
 }
 
+.productTitle{
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .productAddButton {
   width: 85px;
   border: none;
@@ -39,6 +48,20 @@
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
+}
+
+.productListEdit:hover {
+  color:  #2b8a5c;
+}
+
+.productListDelete:hover{
+  color: #c53030;
+}
+
+/*adding hover effect to the add button */
+
+.productAddButton:hover {
+  background-color: #0469a3;
 }
 
 .productButtonContainer {

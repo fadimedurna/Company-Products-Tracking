@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <div className={styles.main_container}>
       <nav className={styles.navbar}>
-        <h1>Assignment</h1>
+        <h1>Company Products Tracking</h1>
         <button className={styles.white_btn} onClick={handleLogout}>
           Logout
         </button>

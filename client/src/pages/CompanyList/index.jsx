@@ -11,57 +11,39 @@ export default function CompanyList() {
   const dispatch = useDispatch();
   const companies = useSelector((state) => state.company.companies);
 
-  const handleDelete = (id) => {
-    deleteCompany(id, dispatch);
-    getCompanies(dispatch);
-    window.location.reload();
-    console.log("deleted company", id);
-  };
-
   useEffect(() => {
     getCompanies(dispatch);
   }, [dispatch]);
 
+  const handleDelete = (id) => {
+    deleteCompany(id, dispatch);
+  };
+
   const columns = [
-    { field: "_id", headerName: "ID", width: 220 },
+    { field: "_id", headerName: "ID", flex: 1 },
     {
-      field: "company",
+      field: "name",
       headerName: "Company",
-      width: 200,
+      flex: 1,
       renderCell: (params) => {
-        return (
-          <div className='companyListItem'>
-            {params.row ? params.row.name : "N/A"}
-          </div>
-        );
+        return <div className="companyListItem">{params.row.name}</div>;
       },
     },
-    { field: "legalNumber", headerName: "Legal Number", width: 200 },
-    {
-      field: "country",
-      headerName: "Country",
-      width: 125,
-    },
-    {
-      field: "website",
-      headerName: "Website",
-      width: 230,
-    },
+    { field: "legalNumber", headerName: "Legal Number", flex: 1 },
+    { field: "country", headerName: "Country", flex: 1 },
+    { field: "website", headerName: "Website", flex: 1 },
     {
       field: "action",
       headerName: "Action",
-      width: 150,
+      flex: 1,
       renderCell: (params) => {
         return (
           <>
             <Link to={"/company/" + params.row._id}>
-              <EditNoteIcon
-                className='companyListEdit'
-                sx={{ fontSize: "30px" }}
-              />
+              <EditNoteIcon className="companyListEdit" />
             </Link>
             <DeleteOutlineIcon
-              className='companyListDelete'
+              className="companyListDelete"
               onClick={() => handleDelete(params.row._id)}
             />
           </>
@@ -71,23 +53,22 @@ export default function CompanyList() {
   ];
 
   return (
-    <div className='companyList'>
-      <div className='companyButtonContainer'>
-        <Link to='/newcompany'>
-          <button className='companyAddButton'>Create</button>
-        </Link>
+    <div className="companyList">
+      <div className="companyTitle">
+        <h1>Company List</h1>
+        <div className="companyButtonContainer">
+          <Link to="/newcompany">
+            <button className="companyAddButton">Create</button>
+          </Link>
+        </div>
       </div>
       <DataGrid
         rows={companies}
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row._id}
-        pageSizeOptions={[8]}
-        initialState={{
-          pagination: {
-            paginationModel: { pageSize: 8, page: 0 },
-          },
-        }}
+        pageSize={8}
+        checkboxSelection
       />
     </div>
   );

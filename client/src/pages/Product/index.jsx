@@ -53,76 +53,108 @@ export default function Product() {
     navigate("/products");
   };
 
+  // Birim seçenekleri
+  const unitOptions = ["kg", "g", "l", "ml", "piece", "pack"];
+
+  // Kategori seçenekleri
+  const categoryOptions = [
+    "electronics",
+    "cosmetic",
+    "clothing",
+    "food",
+    "home",
+    "beauty",
+    "sports",
+    "cleaning",
+    "health",
+    "toys",
+    "books",
+    "automotive",
+    "furniture",
+    "other",
+  ];
+
   return (
-    <div className='product'>
-      <div className='productTop'>
-        <div className='productTopRight'>
-          <div className='productInfoTop'>
-            <span className='productName'>{product.name}</span>
+    <div className="product">
+      <div className="productTop">
+        <div className="productTopRight">
+          <div className="productInfoTop">
+            <span className="productName">{product.name}</span>
           </div>
-          <div className='productInfoBottom'>
-            <div className='productInfoItem'>
-              <span className='productInfoKey'>id:</span>
-              <span className='productInfoValue'>{productId}</span>
+          <div className="productInfoBottom">
+            <div className="productInfoItem">
+              <span className="productInfoKey">id:</span>
+              <span className="productInfoValue">{productId}</span>
             </div>
-            <div className='productInfoItem'>
-              <span className='productInfoKey'>category:</span>
-              <span className='productInfoValue'>{product.category}</span>
+            <div className="productInfoItem">
+              <span className="productInfoKey">category:</span>
+              <span className="productInfoValue">{product.category}</span>
             </div>
-            <div className='productInfoItem'>
-              <span className='productInfoKey'>amount:</span>
-              <span className='productInfoValue'>{product.quantity}</span>
+            <div className="productInfoItem">
+              <span className="productInfoKey">amount:</span>
+              <span className="productInfoValue">{product.quantity}</span>
             </div>
-            <div className='productInfoItem'>
-              <span className='productInfoKey'>unit:</span>
-              <span className='productInfoValue'>{product.unit}</span>
+            <div className="productInfoItem">
+              <span className="productInfoKey">unit:</span>
+              <span className="productInfoValue">{product.unit}</span>
             </div>
-            <div className='productInfoItem'>
-              <span className='productInfoKey'>company:</span>
-              <span className='productInfoValue'>
+            <div className="productInfoItem">
+              <span className="productInfoKey">company:</span>
+              <span className="productInfoValue">
                 {product.company ? product.company.name : "N/A"}
               </span>
             </div>
           </div>
         </div>
       </div>
-      <div className='productBottom'>
-        <form className='productForm' onSubmit={handleSubmit}>
-          <div className='productFormLeft'>
+      <div className="productBottom">
+        <form className="productForm" onSubmit={handleSubmit}>
+          <div className="productFormLeft">
             <label>Product Name</label>
             <input
-              type='text'
+              type="text"
               placeholder={product.name}
-              name='name'
+              name="name"
               onChange={handleChange}
             />
             <label>Product Category</label>
-            <input
-              type='text'
-              placeholder={product.category}
-              name='category'
+            <select
+              name="category"
               onChange={handleChange}
-            />
+              value={inputs.category || product.category}
+            >
+              {categoryOptions.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
             <label>Product Amount</label>
             <input
-              type='number'
+              type="number"
               placeholder={product.quantity}
-              name='quantity'
+              name="quantity"
               onChange={handleChange}
             />
             <label>Product Unit</label>
-            <input
-              type='text'
-              placeholder={product.unit}
-              name='unit'
+            <select
+              name="unit"
               onChange={handleChange}
-            />
+              value={inputs.unit || product.unit}
+            >
+              {unitOptions.map((unit) => (
+                <option key={unit} value={unit}>
+                  {unit}
+                </option>
+              ))}
+            </select>
             <label>Company</label>
             <select
-              name='company'
+              name="company"
               onChange={handleChange}
-              value={inputs.company}>
-              <option value=''>
+              value={inputs.company}
+            >
+              <option value="">
                 {product.company ? product.company.name : "N/A"}
               </option>
               {companies.map((company) => (
@@ -132,8 +164,8 @@ export default function Product() {
               ))}
             </select>
           </div>
-          <div className='productFormRight'>
-            <button type='submit' className='productButton'>
+          <div className="productFormRight">
+            <button type="submit" className="productButton">
               Update
             </button>
           </div>

@@ -30,6 +30,15 @@
   cursor: pointer;
 }
 
+.companyTitle{
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .companyAddButton {
   width: 85px;
   border: none;
@@ -41,10 +50,23 @@
   cursor: pointer;
 }
 
+.companyListEdit:hover {
+  color:  #2b8a5c;
+}
+
+.companyListDelete:hover{
+  color: #c53030;
+}
+
+/*adding hover effect to the add button */
+
+.companyAddButton:hover {
+  background-color: #0469a3;
+}
+
+
 .companyButtonContainer {
-  display: flex;
   align-items: center;
-  justify-content: right;
   margin: 15px 0px;
   padding-right: 20px;
 }

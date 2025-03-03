@@ -39,50 +39,75 @@ export default function NewProduct() {
     navigate("/products");
   };
 
+  // Birim seçenekleri
+  const unitOptions = ["kg", "g", "l", "ml", "piece", "pack"];
+
+  // Kategori seçenekleri
+  const categoryOptions = [
+    "electronics",
+    "cosmetic",
+    "clothing",
+    "food",
+    "home",
+    "beauty",
+    "sports",
+    "cleaning",
+    "health",
+    "toys",
+    "books",
+    "automotive",
+    "furniture",
+    "Other",
+  ];
+
   return (
-    <div className='newProduct'>
-      <h1 className='addProductTitle'>New Product</h1>
-      <form className='addProductForm' onSubmit={handleSubmit}>
-        <div className='addProductItem'>
+    <div className="newProduct">
+      <h1 className="addProductTitle">New Product</h1>
+      <form className="addProductForm" onSubmit={handleSubmit}>
+        <div className="addProductItem">
           <label>Product Name</label>
           <input
-            name='name'
-            type='text'
-            placeholder='name'
+            name="name"
+            type="text"
+            placeholder="name"
             onChange={handleChange}
           />
         </div>
-        <div className='addProductItem'>
+        <div className="addProductItem">
           <label>Product Category</label>
-          <input
-            name='category'
-            type='text'
-            placeholder='category'
-            onChange={handleChange}
-          />
+          <select name="category" onChange={handleChange}>
+            <option value="">Select a category</option>
+            {categoryOptions.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
         </div>
-        <div className='addProductItem'>
+        <div className="addProductItem">
           <label>Product Amount</label>
           <input
-            name='quantity'
-            type='number'
-            placeholder='amount'
+            name="quantity"
+            type="number"
+            placeholder="amount"
             onChange={handleChange}
           />
         </div>
-        <div className='addProductItem'>
+        <div className="addProductItem">
           <label>Product Unit</label>
-          <input
-            name='unit'
-            type='text'
-            placeholder='unit'
-            onChange={handleChange}
-          />
+          <select name="unit" onChange={handleChange}>
+            <option value="">Select a unit</option>
+            {unitOptions.map((unit) => (
+              <option key={unit} value={unit}>
+                {unit.toLowerCase()}
+              </option>
+            ))}
+          </select>
         </div>
-        <div className='addProductItem'>
+        <div className="addProductItem">
           <label>Product Company</label>
-          <select name='company' onChange={handleChange}>
-            <option value=''>Select a company</option>
+          <select name="company" onChange={handleChange}>
+            <option value="">Select a company</option>
             {companies.map((company) => (
               <option key={company._id} value={company._id}>
                 {company.name}
@@ -90,7 +115,7 @@ export default function NewProduct() {
             ))}
           </select>
         </div>
-        <button type='submit' className='addProductButton'>
+        <button type="submit" className="addProductButton">
           Create Product
         </button>
       </form>

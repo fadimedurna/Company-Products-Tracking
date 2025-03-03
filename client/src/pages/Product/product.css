@@ -96,6 +96,7 @@
 
 .productFormLeft > select {
   margin-bottom: 10px;
+  height: 30px;
 }
 
 .productUploadImg {
