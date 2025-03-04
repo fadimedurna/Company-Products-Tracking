@@ -10,7 +10,6 @@ This project is a web application for tracking companies and their products. It 
 - Company management (add, edit, delete, view)
 - Product management (add, edit, delete, view)
 - Dashboard with data visualization
-- Responsive design for various screen sizes
 - Centralized state management with Redux
 
 ## Tech Stack
@@ -32,6 +31,7 @@ cd ../server && npm install
 ```
 
 3. Set up environment variables:
+
 - Create a `.env` file in the server root directory (`/server/.env`)
 - Add the following environment variables to the `.env` file:
   ```
@@ -41,6 +41,7 @@ cd ../server && npm install
   SALT
   ```
 - Make sure to fill in the appropriate values for each variable
+
 4. Start the server:
 
 ```bash
