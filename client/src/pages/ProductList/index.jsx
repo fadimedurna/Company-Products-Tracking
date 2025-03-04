@@ -6,25 +6,34 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getProducts } from "../../redux/apiCalls";
+import { deleteProductSuccess } from "../../redux/productRedux";
 
 export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
   const [selectedProducts, setSelectedProducts] = useState([]);
 
-  const handleDelete = (id) => {
-    deleteProduct(id, dispatch);
-    getProducts(dispatch);
-    window.location.reload();
-    console.log("deleted product", id);
-  };
-
   useEffect(() => {
     getProducts(dispatch);
   }, [dispatch]);
 
-  const handleSelectionChange = (newSelection) => {
-    setSelectedProducts(newSelection);
+  const handleDelete = async (id) => {
+    try {
+      if (selectedProducts.length > 0) {
+        // Çoklu silme
+        for (const productId of selectedProducts) {
+          await deleteProduct(productId, dispatch);
+          dispatch(deleteProductSuccess(productId));
+        }
+        setSelectedProducts([]); // Seçimi sıfırla
+      } else {
+        // Tekli silme
+        await deleteProduct(id, dispatch);
+        dispatch(deleteProductSuccess(id));
+      }
+    } catch (error) {
+      console.error("Error deleting product(s):", error);
+    }
   };
 
   const columns = [
@@ -97,14 +106,6 @@ export default function ProductList() {
             <button className="productAddButton">Create</button>
           </Link>
         </div>
-        {selectedProducts.length > 0 && (
-          <button
-            className="productDeleteButton"
-            onClick={() => console.log("Delete selected", selectedProducts)}
-          >
-            Delete Selected ({selectedProducts.length})
-          </button>
-        )}
       </div>
       <div style={{ width: "100%" }}>
         <DataGrid
@@ -118,8 +119,11 @@ export default function ProductList() {
             },
           }}
           checkboxSelection
-          onRowSelectionModelChange={handleSelectionChange}
-          disableSelectionOnClick
+          onRowSelectionModelChange={(newSelectionModel) => {
+            setSelectedProducts(newSelectionModel);
+          }}
+          rowSelectionModel={selectedProducts}
+          disableRowSelectionOnClick
         />
       </div>
     </div>

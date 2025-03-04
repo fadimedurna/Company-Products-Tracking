@@ -32,7 +32,7 @@ router.get("/total", async (req, res) => {
   }
 });
 
-// GET COMPANY STATS
+// Get compant stats
 router.get("/stats", async (req, res) => {
   const today = new Date();
   const lastYear = new Date(today.setFullYear(today.getFullYear() - 1));
@@ -109,10 +109,14 @@ router.patch("/:id", getCompany, async (req, res) => {
 router.delete("/:id", getCompany, async (req, res) => {
   try {
     const company = await Company.findById(req.params.id);
-    console.log("deleted company: ", company);
+    if (!company) {
+      return res.status(404).json({ message: "Company not found" });
+    }
+    console.log("Deleting company:", company); // Debug log
     await company.deleteOne();
-    res.status(200).json({ message: "Company deleted." });
+    res.status(200).json({ message: "Company deleted successfully" });
   } catch (err) {
+    console.error("Error deleting company:", err); // Error log
     res.status(500).json({ message: err.message });
   }
 });

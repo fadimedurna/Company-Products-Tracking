@@ -43,8 +43,8 @@ export const getProducts = async (dispatch) => {
 export const deleteProduct = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {
-    const res = await publicRequest.delete(`/products/${id}`);
-    dispatch(deleteProductSuccess(res.data));
+    await publicRequest.delete(`/products/${id}`);
+    dispatch(deleteProductSuccess(id));
   } catch (err) {
     dispatch(deleteProductFailure());
   }
@@ -67,11 +67,12 @@ export const addProduct = async (product, dispatch) => {
   try {
     const res = await publicRequest.post("/products", product);
     dispatch(addProductSuccess(res.data));
+    return res.data; // Eklenen ürünü döndür
   } catch (err) {
     dispatch(addProductFailure());
+    throw err;
   }
 };
-
 //get companies
 export const getCompanies = async (dispatch) => {
   dispatch(getCompanyStart());
@@ -106,11 +107,13 @@ export const updateCompany = async (id, company, dispatch) => {
 };
 
 //add company
-export const addCompany = async (product, dispatch) => {
+export const addCompany = async (company, dispatch) => {
   dispatch(addCompanyStart());
   try {
-    const res = await publicRequest.post("/companies", product);
+    const res = await publicRequest.post("/companies", company);
     dispatch(addCompanySuccess(res.data));
+    // Şirket listesini yeniden çek
+    await getCompanies(dispatch);
   } catch (err) {
     dispatch(addCompanyFailure());
   }

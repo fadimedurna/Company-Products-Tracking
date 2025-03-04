@@ -31,12 +31,15 @@ export default function NewProduct() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const product = { ...inputs };
-    console.log("new product: ", product);
-    addProduct(product, dispatch);
-    navigate("/products");
+    try {
+      await addProduct(product, dispatch);
+      navigate("/products"); // Ürün listesine yönlendir
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
   };
 
   // Birim seçenekleri

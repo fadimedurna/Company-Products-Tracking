@@ -59,6 +59,10 @@ export const companySlice = createSlice({
     },
     addCompanySuccess: (state, action) => {
       state.isFetching = false;
+      // Aynı ID'ye sahip şirketi filtrele ve yenisini ekle
+      state.companies = state.companies.filter(
+        (company) => company._id !== action.payload._id
+      );
       state.companies.push(action.payload);
     },
     addCompanyFailure: (state) => {
