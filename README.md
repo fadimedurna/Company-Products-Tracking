@@ -31,7 +31,16 @@ cd client && npm install
 cd ../server && npm install
 ```
 
-3. Set up environment variables (see `.env.example`)
+3. Set up environment variables:
+- Create a `.env` file in the server root directory (`/server/.env`)
+- Add the following environment variables to the `.env` file:
+  ```
+  DB
+  JWTPRIVATEKEY
+  PORT
+  SALT
+  ```
+- Make sure to fill in the appropriate values for each variable
 4. Start the server:
 
 ```bash
